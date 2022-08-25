@@ -1,0 +1,192 @@
+
+ mahsan@u22srv:~/microk8s$ sudo snap install microk8s --classic
+microk8s (1.24/stable) v1.24.3 from Canonical✓ installed
+mahsan@u22srv:~/microk8s$ sudo  microk8s status
+microk8s is running
+high-availability: no
+  datastore master nodes: 127.0.0.1:19001
+  datastore standby nodes: none
+addons:
+  enabled:
+    ha-cluster           # (core) Configure high availability on the current node
+  disabled:
+    community            # (core) The community addons repository
+    dashboard            # (core) The Kubernetes dashboard
+    dns                  # (core) CoreDNS
+    gpu                  # (core) Automatic enablement of Nvidia CUDA
+    helm                 # (core) Helm 2 - the package manager for Kubernetes
+    helm3                # (core) Helm 3 - Kubernetes package manager
+    host-access          # (core) Allow Pods connecting to Host services smoothly
+    hostpath-storage     # (core) Storage class; allocates storage from host directory
+    ingress              # (core) Ingress controller for external access
+    mayastor             # (core) OpenEBS MayaStor
+    metallb              # (core) Loadbalancer for your Kubernetes cluster
+    metrics-server       # (core) K8s Metrics Server for API access to service metrics
+    prometheus           # (core) Prometheus operator for monitoring and logging
+    rbac                 # (core) Role-Based Access Control for authorisation
+    registry             # (core) Private image registry exposed on localhost:32000
+    storage              # (core) Alias to hostpath-storage add-on, deprecated
+mahsan@u22srv:~/microk8s$ microk8s config
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUREekNDQWZlZ0F3SUJBZ0lVTnFmS2FNOFNZYzdvVksyY3ZsaXZGYkpOYktZd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0Z6RVZNQk1HQTFVRUF3d01NVEF1TVRVeUxqRTRNeTR4TUI0WERUSXlNRGd5TlRJek1qSXlNMW9YRFRNeQpNRGd5TWpJek1qSXlNMW93RnpFVk1CTUdBMVVFQXd3TU1UQXVNVFV5TGpFNE15NHhNSUlCSWpBTkJna3Foa2lHCjl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6a09lM2MrOTFmbUpyck5zdDlWbU1QQWgwUWdrelowcU9EeWEKUEwzdWtXQ0ZaWmxQWFJnU1ZseExoWGFXeDU2b3lBODkvcnVxOVpkdVMyMEdNM1pzdDZnY2R5VU4yMHkwUHh2cQp4Vmh0N1Z0Q2UrVGpwZEk0U3h3eTBpT3FVZTQ1QWd5aHBBZ0lrdmVNMjRQVCtNVjAzS2R3WXRHdmVZYmwrUzFKCjFZZnA3T00yVVhTdm1LQ2M3R1RNdFRCYlhVSmRiOVZjeXprWTNYcldQZU8wblZsWkZ6a0lId1lyWmZtS3ZuK1EKd0hsazY0WEU0OGlhMmxUMTJsU21MU01FVTRsWUV5T1VXVEY4SlZ4dWdVSGFzOTRrbFYvQS9BNFBEZ0RaNER0NApmRXRlNzhZSnp2NmQvcDRxelJnS05mQUpnS1lTVVAwUmcyb2NEMStEM1AxeDlsWG9Vd0lEQVFBQm8xTXdVVEFkCkJnTlZIUTRFRmdRVVQ3KysvSWM1ZVVMNFBHcktaQXpHdkhLcjNoa3dId1lEVlIwakJCZ3dGb0FVVDcrKy9JYzUKZVVMNFBHcktaQXpHdkhLcjNoa3dEd1lEVlIwVEFRSC9CQVV3QXdFQi96QU5CZ2txaGtpRzl3MEJBUXNGQUFPQwpBUUVBUFJtcWJXNmQ0cXlDWUhkUGowdk1nWWpaVVRpQ2ZacE9nNGQvZTl5ajZjWk9GOGxMcXRUTURVVEhNTzQxCjZjVmw2T1dQcWQyMzJvSDhiU0EzT1FSanY3RWF2YjhRajloVmVaeGFtMldWZTNPY21uOW4yZlp2M1YzTzNjUGUKNlk0ZVBubkhDei9Ja1ZSK2pmd0dwUGFORS9HNXM0cnNzS0dHWVJBb1d0bjFYekF3a2lNaHl5S2k0SFRjc0dPWgpjcUhyVkhOSk1ka3N6Wld6VHFYVmhlWjBsSHBwVmFBTGZmVzJNaGFXQUs5TDNWY3JkS2lFUTFQTlBXNDQ5aFhNClRsS09xM2NRZVJCWHA1a2l6eU1XblJtK0c2YXZ0bDJITjVFc3d1eGFuZ1NXWmtIWmJHekFxYzRhakNHNTJSMFMKZ0xuVWZWMklCZnROYUxVV1IrZDdiWUROdGc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://192.168.0.169:16443
+  name: microk8s-cluster
+contexts:
+- context:
+    cluster: microk8s-cluster
+    user: admin
+  name: microk8s
+current-context: microk8s
+kind: Config
+preferences: {}
+users:
+- name: admin
+  user:
+    token: dmF0OTNVZ2pKeEo4eThvUml0cmFwK0x3YVV5ZU0wQ3NoK082ZnNlMGJNND0K
+
+mahsan@u22srv:~/microk8s$ sudo microk8s kubectl get nodes
+NAME     STATUS   ROLES    AGE    VERSION
+u22srv   Ready    <none>   2m7s   v1.24.3-2+63243a96d1c393
+mahsan@u22srv:~/microk8s$ sudo microk8s stop
+Run service command "stop" for services ["daemon-apiserver" "daemon-apiserver-kicker" "daemon-cluster-agent" "daemon-containerd" "daemo…
+Stopped.
+mahsan@u22srv:~/microk8s$ sudo microk8s status
+microk8s is not running, try microk8s start
+mahsan@u22srv:~/microk8s$ sudo microk8s start
+Started.
+
+mahsan@u22srv:~/microk8s$ sudo microk8s status
+microk8s is running
+high-availability: no
+  datastore master nodes: 127.0.0.1:19001
+  datastore standby nodes: none
+addons:
+  enabled:
+    ha-cluster           # (core) Configure high availability on the current node
+  disabled:
+    community            # (core) The community addons repository
+    dashboard            # (core) The Kubernetes dashboard
+    dns                  # (core) CoreDNS
+    gpu                  # (core) Automatic enablement of Nvidia CUDA
+    helm                 # (core) Helm 2 - the package manager for Kubernetes
+    helm3                # (core) Helm 3 - Kubernetes package manager
+    host-access          # (core) Allow Pods connecting to Host services smoothly
+    hostpath-storage     # (core) Storage class; allocates storage from host directory
+    ingress              # (core) Ingress controller for external access
+    mayastor             # (core) OpenEBS MayaStor
+    metallb              # (core) Loadbalancer for your Kubernetes cluster
+    metrics-server       # (core) K8s Metrics Server for API access to service metrics
+    prometheus           # (core) Prometheus operator for monitoring and logging
+    rbac                 # (core) Role-Based Access Control for authorisation
+    registry             # (core) Private image registry exposed on localhost:32000
+    storage              # (core) Alias to hostpath-storage add-on, deprecated
+
+
+***
+
+
+mahsan@u22srv:~/microk8s/Anisble-AWX$ microk8s enable storage dns ingress
+Infer repository core for addon storage
+Infer repository core for addon dns
+Infer repository core for addon ingress
+DEPRECIATION WARNING: 'storage' is deprecated and will soon be removed. Please use 'hostpath-storage' instead.
+
+Infer repository core for addon hostpath-storage
+Enabling default storage class.
+WARNING: Hostpath storage is not suitable for production environments.
+
+deployment.apps/hostpath-provisioner created
+storageclass.storage.k8s.io/microk8s-hostpath created
+serviceaccount/microk8s-hostpath created
+clusterrole.rbac.authorization.k8s.io/microk8s-hostpath created
+clusterrolebinding.rbac.authorization.k8s.io/microk8s-hostpath created
+Storage will be available soon.
+Enabling DNS
+Applying manifest
+serviceaccount/coredns created
+configmap/coredns created
+deployment.apps/coredns created
+service/kube-dns created
+clusterrole.rbac.authorization.k8s.io/coredns created
+clusterrolebinding.rbac.authorization.k8s.io/coredns created
+Restarting kubelet
+DNS is enabled
+Enabling Ingress
+ingressclass.networking.k8s.io/public created
+namespace/ingress created
+serviceaccount/nginx-ingress-microk8s-serviceaccount created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-microk8s-clusterrole created
+role.rbac.authorization.k8s.io/nginx-ingress-microk8s-role created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-microk8s created
+rolebinding.rbac.authorization.k8s.io/nginx-ingress-microk8s created
+configmap/nginx-load-balancer-microk8s-conf created
+configmap/nginx-ingress-tcp-microk8s-conf created
+configmap/nginx-ingress-udp-microk8s-conf created
+daemonset.apps/nginx-ingress-microk8s-controller created
+Ingress is enabled
+mahsan@u22srv:~/microk8s/Anisble-AWX$ sudo snap alias microk8s.kubectl kubectl
+Added:
+  - microk8s.kubectl as kubectl
+mahsan@u22srv:~/microk8s/Anisble-AWX$ git clone https://github.com/ansible/awx-operator.git
+Cloning into 'awx-operator'...
+remote: Enumerating objects: 7201, done.
+remote: Counting objects: 100% (208/208), done.
+remote: Compressing objects: 100% (137/137), done.
+remote: Total 7201 (delta 77), reused 167 (delta 59), pack-reused 6993
+Receiving objects: 100% (7201/7201), 1.76 MiB | 3.77 MiB/s, done.
+Resolving deltas: 100% (4111/4111), done.
+mahsan@u22srv:~/microk8s/Anisble-AWX$ cd awx-operator
+mahsan@u22srv:~/microk8s/Anisble-AWX/awx-operator$ export NAMESPACE=ansible-awx
+mahsan@u22srv:~/microk8s/Anisble-AWX/awx-operator$ sudo apt install make
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Suggested packages:
+  make-doc
+The following NEW packages will be installed:
+  make
+0 upgraded, 1 newly installed, 0 to remove and 11 not upgraded.
+Need to get 180 kB of archives.
+After this operation, 426 kB of additional disk space will be used.
+Get:1 http://ca.archive.ubuntu.com/ubuntu jammy/main amd64 make amd64 4.3-4.1build1 [180 kB]
+Fetched 180 kB in 1s (269 kB/s)
+Selecting previously unselected package make.
+(Reading database ... 73328 files and directories currently installed.)
+Preparing to unpack .../make_4.3-4.1build1_amd64.deb ...
+Unpacking make (4.3-4.1build1) ...
+Setting up make (4.3-4.1build1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+mahsan@u22srv:~/microk8s/Anisble-AWX/awx-operator$ sudo make deploy
+namespace/awx created
+customresourcedefinition.apiextensions.k8s.io/awxbackups.awx.ansible.com created
+customresourcedefinition.apiextensions.k8s.io/awxrestores.awx.ansible.com created
+customresourcedefinition.apiextensions.k8s.io/awxs.awx.ansible.com created
+serviceaccount/awx-operator-controller-manager created
+role.rbac.authorization.k8s.io/awx-operator-awx-manager-role created
+role.rbac.authorization.k8s.io/awx-operator-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/awx-operator-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/awx-operator-proxy-role created
+rolebinding.rbac.authorization.k8s.io/awx-operator-awx-manager-rolebinding created
+rolebinding.rbac.authorization.k8s.io/awx-operator-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/awx-operator-proxy-rolebinding created
+configmap/awx-operator-awx-manager-config created
+service/awx-operator-controller-manager-metrics-service created
+deployment.apps/awx-operator-controller-manager created
+ 
+ mahsan@u22srv:~/microk8s/Anisble-AWX/awx-operator$ sudo kubectl get pods -n $NAMESPACE
+No resources found in ansible-awx namespace.
+m
