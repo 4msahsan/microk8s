@@ -3,7 +3,7 @@
 <pre>
 
 [200~microk8s is not running. Use microk8s inspect for a deeper inspection.
-root@microk8s:~# microk8s start
+<sub>root@microk8s:~# microk8s start</sub>
 root@microk8s:~# microk8s status
 microk8s is running
 high-availability: no
