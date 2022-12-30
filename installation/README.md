@@ -3,7 +3,7 @@
 <pre>
 
 [200~microk8s is not running. Use microk8s inspect for a deeper inspection.
-<sub>root@microk8s:~# microk8s start</sub>
+<sub>root@microk8s:~# microk8s start<
 root@microk8s:~# microk8s status
 microk8s is running
 high-availability: no
@@ -52,5 +52,5 @@ users:
   user:
     token: c1ZrMHRqQVp4RTZTUEhsT1NJQno0WGRLMytPWjlHb3pSZk93RXZQcVp2QT0K
 
-
+</sub>
 </pre>
