@@ -263,7 +263,7 @@ mahsan@k8sawx:$
 mahsan@k8sawx:$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 msa-nginx   1/1     1            1           8m36s
-mahsan@k8sawx:~$ microk8s kubectl get pods
+mahsan@k8sawx:$ microk8s kubectl get pods
 NAME                         READY   STATUS    RESTARTS   AGE
 msa-nginx-555b7f4c7c-jx2hb   1/1     Running   0          8m41s
 mahsan@k8sawx:$ microk8s kubectl scale deployment msa-nginx --replicas=3
@@ -355,11 +355,11 @@ mahsan@k8sawx:/YAML$ cat nfs-pv.yml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  # any PV name
+   any PV name
   name: nfs-pv
 spec:
   capacity:
-    # storage size
+     storage size
     storage: 10Gi
   accessModes:
     # Access Modes:
@@ -412,7 +412,7 @@ mahsan@k8sawx:/YAML$ cat nfs-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  # any PVC name
+   <em>any PVC name</em>
   name: nfs-pvc
 spec:
   accessModes:
@@ -465,7 +465,6 @@ mahsan@k8sawx:/YAML$ cat nginx-nfs.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  # any Deployment name
   name: nginx-nfs
   labels:
     name: nginx-nfs
