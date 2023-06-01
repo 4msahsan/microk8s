@@ -15,15 +15,15 @@ Verbosity = 0
 
 Nobody-User = nobody
 Nobody-Group = nogroup
-mahsan@k8snfs:~/nfsshare$ cat /etc/exports
+mahsan@k8snfs:/nfsshare$ cat /etc/exports
 
 /home/mahsan/nfsshare 192.168.0.133/24(rw,no_root_squash)
 
-mahsan@k8snfs:~/nfsshare$ ls -ltr /home/mahsan/nfsshare/
+mahsan@k8snfs:/nfsshare$ ls -ltr /home/mahsan/nfsshare/
 total 4
 -rw-rw-r-- 1 mahsan mahsan    0 May 31 18:59 asd
 -rw-rw-r-- 1 mahsan mahsan 3893 May 31 18:59 test1
-mahsan@k8snfs:~/nfsshare$
+mahsan@k8snfs:/nfsshare$
 
 
 systemctl restart nfs-server
@@ -32,7 +32,7 @@ mahsan@k8snfs:~/nfsshare$ sudo exportfs
 [sudo] password for mahsan:
 /home/mahsan/nfsshare
                 192.168.0.133/24
-mahsan@k8snfs:~/nfsshare$
+mahsan@k8snfs:/nfsshare$
 
 
 <b> Nfs Client </b>
@@ -40,8 +40,8 @@ mahsan@k8sawx:/mnt$ grep /mnt /proc/mounts
 192.168.0.133:/home/mahsan/nfsshare /mnt nfs4 rw,relatime,vers=4.2,rsize=131072,wsize=131072,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=192.168.0.131,local_lock=none,addr=192.168.0.133 0 0
 mahsan@k8sawx:/mnt$
 
-mahsan@k8sawx:~$ sudo mount -t nfs 192.168.0.133:/home/mahsan/nfsshare /mnt/CIFS
-mahsan@k8sawx:~$ df -h
+mahsan@k8sawx:$ sudo mount -t nfs 192.168.0.133:/home/mahsan/nfsshare /mnt/CIFS
+mahsan@k8sawx:$ df -h
 Filesystem                           Size  Used Avail Use% Mounted on
 tmpfs                                795M  1.1M  794M   1% /run
 /dev/mapper/ubuntu--vg-ubuntu--lv     48G  8.3G   38G  19% /
@@ -51,8 +51,8 @@ tmpfs                                5.0M     0  5.0M   0% /run/lock
 tmpfs                                795M  4.0K  795M   1% /run/user/1000
 192.168.0.133:/home/mahsan/nfsshare   48G  6.9G   39G  16% /mnt/CIFS
 
-mahsan@k8sawx:~$ sudo umount -f /mnt/CIFS
-mahsan@k8sawx:~$ df -h
+mahsan@k8sawx:$ sudo umount -f /mnt/CIFS
+mahsan@k8sawx:$ df -h
 Filesystem                         Size  Used Avail Use% Mounted on
 tmpfs                              795M  1.1M  794M   1% /run
 /dev/mapper/ubuntu--vg-ubuntu--lv   48G  8.3G   38G  19% /
@@ -60,12 +60,12 @@ tmpfs                              3.9G     0  3.9G   0% /dev/shm
 tmpfs                              5.0M     0  5.0M   0% /run/lock
 /dev/sda2                          2.0G  127M  1.7G   7% /boot
 tmpfs                              795M  4.0K  795M   1% /run/user/1000
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
 
 
-root@k8s:~# hostnamectl set-hostname k8sawx.example.com
-root@k8s:~# cat /etc/netplan/00-installer-config.yaml
+root@k8s:# hostnamectl set-hostname k8sawx.example.com
+root@k8s:# cat /etc/netplan/00-installer-config.yaml
 network:
   ethernets:
     enp0s3:
@@ -74,17 +74,17 @@ network:
       nameservers:
         addresses: [4.2.2.2, 8.8.8.8]
   version: 2
-root@k8s:~#
+root@k8s:#
 
 
-mahsan@k8sawx:~$ sudo snap install microk8s --classic
+mahsan@k8sawx:$ sudo snap install microk8s --classic
 [sudo] password for mahsan:
 Sorry, try again.
 [sudo] password for mahsan:
 microk8s (1.26/stable) v1.26.4 from Canonical✓ installed
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
-mahsan@k8sawx:~$ sudo microk8s status
+mahsan@k8sawx:$ sudo microk8s status
 microk8s is running
 high-availability: no
   datastore master nodes: 127.0.0.1:19001
@@ -113,10 +113,10 @@ addons:
     rbac                 # (core) Role-Based Access Control for authorisation
     registry             # (core) Private image registry exposed on localhost:32000
     storage              # (core) Alias to hostpath-storage add-on, deprecated
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
 
-mahsan@k8sawx:~$ sudo microk8s config
+mahsan@k8sawx:$ sudo microk8s config
 apiVersion: v1
 clusters:
 - cluster:
@@ -136,78 +136,78 @@ users:
   user:
     token: ZWdzV2t1S3NDejRCb3JEUGZxdDFCd0Y1RlM5OGZaUk5qR2NnNG04bFl3VT0K
 
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
 
-mahsan@k8sawx:~$ sudo microk8s kubectl get all
+mahsan@k8sawx:$ sudo microk8s kubectl get all
 NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.152.183.1   <none>        443/TCP   10m
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
 
-root@k8sawx:~# microk8s kubectl get nodes
+root@k8sawx:# microk8s kubectl get nodes
 NAME                 STATUS   ROLES    AGE   VERSION
 k8sawx.example.com   Ready    <none>   10m   v1.26.4
-root@k8sawx:~#
+root@k8sawx:#
 
-root@k8sawx:~# microk8s stop
+root@k8sawx: microk8s stop
 Stopped.
-root@k8sawx:~# microk8s status
+root@k8sawx:# microk8s status
 microk8s is not running, try microk8s start
-root@k8sawx:~#
+root@k8sawx:#
 
 
-root@k8sawx:~# microk8s start
-root@k8sawx:~#
+root@k8sawx:# microk8s start
+root@k8sawx:#
 
-root@k8sawx:~# snap disable microk8s
+root@k8sawx:# snap disable microk8s
 microk8s disabled
-root@k8sawx:~# snap enable microk8s
+root@k8sawx:# snap enable microk8s
 microk8s enabled
-root@k8sawx:~#
+root@k8sawx:#
 
-root@k8sawx:~# microk8s stop
+root@k8sawx:# microk8s stop
 Stopped.
-root@k8sawx:~# microk8s status
+root@k8sawx:# microk8s status
 microk8s is not running, try microk8s start
-root@k8sawx:~#
+root@k8sawx:#
 
 ## Deployment ##
-mahsan@k8sawx:~$ microk8s kubectl get deploy
+mahsan@k8sawx:$ microk8s kubectl get deploy
 microk8s is not running, try microk8s start
-mahsan@k8sawx:~$ microk8s start
-mahsan@k8sawx:~$ microk8s kubectl get deploy
+mahsan@k8sawx:$ microk8s start
+mahsan@k8sawx:$ microk8s kubectl get deploy
 No resources found in default namespace.
 mahsan@k8sawx:~$ microk8s kubectl get deploy --all-namespaces
 NAMESPACE     NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
 kube-system   calico-kube-controllers   1/1     1            1           101m
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
-mahsan@k8sawx:~$ microk8s kubectl get deploy --all-namespaces
+mahsan@k8sawx:$ microk8s kubectl get deploy --all-namespaces
 NAMESPACE     NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
 kube-system   calico-kube-controllers   1/1     1            1           101m
-mahsan@k8sawx:~$ microk8s kubectl create deployment msa-nginx --image=nginx
+mahsan@k8sawx:$ microk8s kubectl create deployment msa-nginx --image=nginx
 deployment.apps/msa-nginx created
-mahsan@k8sawx:~$ microk8s kubectl get deploy
+mahsan@k8sawx:$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 msa-nginx   0/1     1            0           9s
-mahsan@k8sawx:~$ microk8s kubectl get ns
+mahsan@k8sawx:$ microk8s kubectl get ns
 NAME              STATUS   AGE
 kube-system       Active   103m
 kube-public       Active   103m
 kube-node-lease   Active   103m
 default           Active   103m
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
-mahsan@k8sawx:~$ microk8s kubectl get pods
+mahsan@k8sawx:$ microk8s kubectl get pods
 NAME                         READY   STATUS    RESTARTS   AGE
 msa-nginx-555b7f4c7c-jx2hb   1/1     Running   0          77s
-mahsan@k8sawx:~$ microk8s kubectl get pods -o wide
+mahsan@k8sawx:$ microk8s kubectl get pods -o wide
 NAME                         READY   STATUS    RESTARTS   AGE   IP           NODE                 NOMINATED NODE   READINESS GATES
 msa-nginx-555b7f4c7c-jx2hb   1/1     Running   0          87s   10.1.233.4   k8sawx.example.com   <none>           <none>
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
-mahsan@k8sawx:~$ microk8s kubectl exec msa-nginx-555b7f4c7c-jx2hb -- env
+mahsan@k8sawx:$ microk8s kubectl exec msa-nginx-555b7f4c7c-jx2hb -- env
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=msa-nginx-555b7f4c7c-jx2hb
 NGINX_VERSION=1.25.0
@@ -222,7 +222,7 @@ KUBERNETES_SERVICE_PORT=443
 KUBERNETES_SERVICE_PORT_HTTPS=443
 KUBERNETES_PORT=tcp://10.152.183.1:443
 
-mahsan@k8sawx:~$ microk8s kubectl exec -it msa-nginx-555b7f4c7c-jx2hb -- bash
+mahsan@k8sawx:$ microk8s kubectl exec -it msa-nginx-555b7f4c7c-jx2hb -- bash
 root@msa-nginx-555b7f4c7c-jx2hb:/# hostname
 msa-nginx-555b7f4c7c-jx2hb
 root@msa-nginx-555b7f4c7c-jx2hb:/# df -h
@@ -238,7 +238,7 @@ tmpfs                              3.9G     0  3.9G   0% /sys/firmware
 root@msa-nginx-555b7f4c7c-jx2hb:/#
 
 
-mahsan@k8sawx:~$ microk8s kubectl logs msa-nginx-555b7f4c7c-jx2hb
+mahsan@k8sawx:$ microk8s kubectl logs msa-nginx-555b7f4c7c-jx2hb
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
@@ -257,26 +257,26 @@ mahsan@k8sawx:~$ microk8s kubectl logs msa-nginx-555b7f4c7c-jx2hb
 2023/05/31 19:48:25 [notice] 1#1: start worker process 30
 2023/05/31 19:48:25 [notice] 1#1: start worker process 31
 2023/05/31 19:48:25 [notice] 1#1: start worker process 32
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
 
-mahsan@k8sawx:~$ microk8s kubectl get deploy
+mahsan@k8sawx:$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 msa-nginx   1/1     1            1           8m36s
 mahsan@k8sawx:~$ microk8s kubectl get pods
 NAME                         READY   STATUS    RESTARTS   AGE
 msa-nginx-555b7f4c7c-jx2hb   1/1     Running   0          8m41s
-mahsan@k8sawx:~$ microk8s kubectl scale deployment msa-nginx --replicas=3
+mahsan@k8sawx:$ microk8s kubectl scale deployment msa-nginx --replicas=3
 deployment.apps/msa-nginx scaled
-mahsan@k8sawx:~$ microk8s kubectl get pods
+mahsan@k8sawx:$ microk8s kubectl get pods
 NAME                         READY   STATUS    RESTARTS   AGE
 msa-nginx-555b7f4c7c-jx2hb   1/1     Running   0          9m14s
 msa-nginx-555b7f4c7c-wbhz9   1/1     Running   0          3s
 msa-nginx-555b7f4c7c-pr7rp   1/1     Running   0          3s
-mahsan@k8sawx:~$ microk8s kubectl get deploy
+mahsan@k8sawx:$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 msa-nginx   3/3     3            3           9m20s
-mahsan@k8sawx:~$ microk8s kubectl get pods -o wide
+mahsan@k8sawx:$ microk8s kubectl get pods -o wide
 NAME                         READY   STATUS    RESTARTS   AGE     IP           NODE                 NOMINATED NODE   READINESS GATES
 msa-nginx-555b7f4c7c-jx2hb   1/1     Running   0          9m28s   10.1.233.4   k8sawx.example.com   <none>           <none>
 msa-nginx-555b7f4c7c-wbhz9   1/1     Running   0          17s     10.1.233.5   k8sawx.example.com   <none>           <none>
@@ -284,16 +284,16 @@ msa-nginx-555b7f4c7c-pr7rp   1/1     Running   0          17s     10.1.233.6   k
 mahsan@k8sawx:~$
 
 
-mahsan@k8sawx:~$ microk8s kubectl expose deployment msa-nginx --type="NodePort" --port 80
+mahsan@k8sawx:$ microk8s kubectl expose deployment msa-nginx --type="NodePort" --port 80
 service/msa-nginx exposed
 
-mahsan@k8sawx:~$ microk8s kubectl get svc
+mahsan@k8sawx:$ microk8s kubectl get svc
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP   10.152.183.1     <none>        443/TCP        117m
 msa-nginx    NodePort    10.152.183.231   <none>        80:32572/TCP   21s
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
-mahsan@k8sawx:~$ curl 10.152.183.231
+mahsan@k8sawx:$ curl 10.152.183.231
 <!DOCTYPE html>
 <html>
 <head>
@@ -317,16 +317,16 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-mahsan@k8sawx:~$
+mahsan@k8sawx:$
 
-mahsan@k8sawx:~$ microk8s kubectl delete svc msa-nginx
+mahsan@k8sawx:$ microk8s kubectl delete svc msa-nginx
 service "msa-nginx" deleted
-mahsan@k8sawx:~$ microk8s kubectl get svc
+mahsan@k8sawx:$ microk8s kubectl get svc
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.152.183.1   <none>        443/TCP   120m
-mahsan@k8sawx:~$ microk8s kubectl delete deployment  msa-nginx
+mahsan@k8sawx:$ microk8s kubectl delete deployment  msa-nginx
 deployment.apps "msa-nginx" deleted
-mahsan@k8sawx:~$ microk8s kubectl get deployment
+mahsan@k8sawx:$ microk8s kubectl get deployment
 No resources found in default namespace.
 
 
@@ -345,14 +345,13 @@ microk8s join 192.168.0.131:25000/16e4673e572df7a72a10677860e30364/b2760408afd5
 microk8s join fd00:a84e:3f64:bab2:a00:27ff:fe52:1bf4:25000/16e4673e572df7a72a10677860e30364/b2760408afd5
 mahsan@k8sawx:~$
 
-mahsan@k8sawsnode1:~$ sudo snap install microk8s --classic
+mahsan@k8sawsnode1:$ sudo snap install microk8s --classic
 [sudo] password for mahsan:
 microk8s (1.26/stable) v1.26.4 from Canonical✓ installed
-mahsan@k8sawsnode1:~$
+mahsan@k8sawsnode1:$
 
 
-***
-mahsan@k8sawx:~/YAML$ cat nfs-pv.yml
+mahsan@k8sawx:/YAML$ cat nfs-pv.yml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -377,15 +376,15 @@ spec:
     path: /home/mahsan/nfsshare
     server: 192.168.0.133
     readOnly: false
-mahsan@k8sawx:~/YAML$
+mahsan@k8sawx:/YAML$
 
-mahsan@k8sawx:~/YAML$ sudo microk8s kubectl apply -f nfs-pv.yml
+mahsan@k8sawx:/YAML$ sudo microk8s kubectl apply -f nfs-pv.yml
 persistentvolume/nfs-pv created
-mahsan@k8sawx:~/YAML$ microk8s kubectl get pv
+mahsan@k8sawx:/YAML$ microk8s kubectl get pv
 NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
 nfs-pv   10Gi       RWX            Retain           Available           nfs-server              16s
 
-mahsan@k8sawx:~/YAML$ m kubectl describe  pv nfs-pv
+mahsan@k8sawx:/YAML$ m kubectl describe  pv nfs-pv
 Name:            nfs-pv
 Labels:          <none>
 Annotations:     <none>
@@ -405,11 +404,11 @@ Source:
     Path:      /home/mahsan/nfsshare
     ReadOnly:  false
 Events:        <none>
-mahsan@k8sawx:~/YAML$
+mahsan@k8sawx:/YAML$
 
 <b> Create PVC </b>
 
-mahsan@k8sawx:~/YAML$ cat nfs-pvc.yml
+mahsan@k8sawx:/YAML$ cat nfs-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -424,19 +423,19 @@ spec:
   storageClassName: nfs-server
 
 
-mahsan@k8sawx:~/YAML$ m kubectl get pvc
+mahsan@k8sawx:/YAML$ m kubectl get pvc
 NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 nfs-pvc   Bound    nfs-pv   10Gi       RWX            nfs-server     11s
 
 
-mahsan@k8sawx:~/YAML$ m kubectl get pv,pvc
+mahsan@k8sawx:/YAML$ m kubectl get pv,pvc
 NAME                      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   REASON   AGE
 persistentvolume/nfs-pv   10Gi       RWX            Retain           Bound    default/nfs-pvc   nfs-server              7m58s
 
 NAME                            STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 persistentvolumeclaim/nfs-pvc   Bound    nfs-pv   10Gi       RWX            nfs-server     32s
  
- mahsan@k8sawx:~/YAML$ m kubectl describe pvc  nfs-pvc
+ mahsan@k8sawx:/YAML$ m kubectl describe pvc  nfs-pvc
 Name:          nfs-pvc
 Namespace:     default
 StorageClass:  nfs-server
@@ -451,18 +450,18 @@ Access Modes:  RWX
 VolumeMode:    Filesystem
 Used By:       <none>
 Events:        <none>
-mahsan@k8sawx:~/YAML$ m kubectl get pv,pvc
+mahsan@k8sawx:/YAML$ m kubectl get pv,pvc
 NAME                      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM             STORAGECLASS   REASON   AGE
 persistentvolume/nfs-pv   10Gi       RWX            Retain           Bound    default/nfs-pvc   nfs-server              10m
 
 NAME                            STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 persistentvolumeclaim/nfs-pvc   Bound    nfs-pv   10Gi       RWX            nfs-server     2m43s
-mahsan@k8sawx:~/YAML$
+mahsan@k8sawx:/YAML$
 
 
 <b> NFS POD Creation </b>
 
-mahsan@k8sawx:~/YAML$ cat nginx-nfs.yml
+mahsan@k8sawx:/YAML$ cat nginx-nfs.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -500,16 +499,16 @@ spec:
 sudo microk8s kubectl apply -f nginx-nfs.yml
 
 
-mahsan@k8sawx:~/YAML$ microk8s kubectl get pods
+mahsan@k8sawx:/YAML$ microk8s kubectl get pods
 NAME                        READY   STATUS    RESTARTS   AGE
 nginx-nfs-6bbbb89cd-78982   1/1     Running   0          11s
 nginx-nfs-6bbbb89cd-q6gb7   1/1     Running   0          11s
 nginx-nfs-6bbbb89cd-hd9bn   1/1     Running   0          11s
-mahsan@k8sawx:~/YAML$ microk8s kubectl get deploy
+mahsan@k8sawx:/YAML$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-nfs   3/3     3            3           21s
 
-mahsan@k8sawx:~/YAML$ microk8s kubectl describe pod nginx-nfs-6bbbb89cd-78982
+mahsan@k8sawx:/YAML$ microk8s kubectl describe pod nginx-nfs-6bbbb89cd-78982
 Name:             nginx-nfs-6bbbb89cd-78982
 Namespace:        default
 Priority:         0
@@ -570,7 +569,7 @@ mahsan@k8sawx:~/YAML$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-nfs   3/3     3            3           6m41s
 
-mahsan@k8sawx:~/YAML$ microk8s kubectl describe deploy nginx-nfs
+mahsan@k8sawx:/YAML$ microk8s kubectl describe deploy nginx-nfs
 Name:                   nginx-nfs
 Namespace:              default
 CreationTimestamp:      Thu, 01 Jun 2023 18:17:13 +0000
@@ -605,22 +604,22 @@ OldReplicaSets:  <none>
 NewReplicaSet:   nginx-nfs-6bbbb89cd (3/3 replicas created)
 Events:          <none>
 
-mahsan@k8sawx:~/YAML$ microk8s kubectl get pods
+mahsan@k8sawx:/YAML$ microk8s kubectl get pods
 NAME                        READY   STATUS    RESTARTS   AGE
 nginx-nfs-6bbbb89cd-78982   1/1     Running   0          64m
 nginx-nfs-6bbbb89cd-q6gb7   1/1     Running   0          64m
 nginx-nfs-6bbbb89cd-hd9bn   1/1     Running   0          64m
-mahsan@k8sawx:~/YAML$ microk8s kubectl get deploy
+mahsan@k8sawx:/YAML$ microk8s kubectl get deploy
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-nfs   3/3     3            3           64m
 
-mahsan@k8sawx:~/YAML$ microk8s kubectl expose deployment nginx-nfs --type="NodePort" --port 80
+mahsan@k8sawx:/YAML$ microk8s kubectl expose deployment nginx-nfs --type="NodePort" --port 80
 service/nginx-nfs exposed
-mahsan@k8sawx:~/YAML$ microk8s kubectl get svc
+mahsan@k8sawx:/YAML$ microk8s kubectl get svc
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP   10.152.183.1    <none>        443/TCP        25h
 nginx-nfs    NodePort    10.152.183.62   <none>        80:31659/TCP   7s
-mahsan@k8sawx:~/YAML$ microk8s kubectl describe  svc nginx-nfs
+mahsan@k8sawx:/YAML$ microk8s kubectl describe  svc nginx-nfs
 Name:                     nginx-nfs
 Namespace:                default
 Labels:                   name=nginx-nfs
@@ -638,26 +637,26 @@ Endpoints:                10.1.233.10:80,10.1.233.8:80,10.1.233.9:80
 Session Affinity:         None
 External Traffic Policy:  Cluster
 Events:                   <none>
-mahsan@k8sawx:~/YAML$
+mahsan@k8sawx:/YAML$
 
-mahsan@k8sawx:~/YAML$ microk8s kubectl get deploy -o wide
+mahsan@k8sawx:/YAML$ microk8s kubectl get deploy -o wide
 NAME        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES   SELECTOR
 nginx-nfs   3/3     3            3           66m   nginx-nfs    nginx    app=nginx-nfs
-mahsan@k8sawx:~/YAML$ microk8s kubectl get pod -o wide
+mahsan@k8sawx:/YAML$ microk8s kubectl get pod -o wide
 NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE                 NOMINATED NODE   READINESS GATES
 nginx-nfs-6bbbb89cd-78982   1/1     Running   0          66m   10.1.233.8    k8sawx.example.com   <none>           <none>
 nginx-nfs-6bbbb89cd-q6gb7   1/1     Running   0          66m   10.1.233.9    k8sawx.example.com   <none>           <none>
 nginx-nfs-6bbbb89cd-hd9bn   1/1     Running   0          66m   10.1.233.10   k8sawx.example.com   <none>           <none>
-mahsan@k8sawx:~/YAML$
-mahsan@k8sawx:~/YAML$ microk8s kubectl get service nginx-nfs
+mahsan@k8sawx:/YAML$
+mahsan@k8sawx:/YAML$ microk8s kubectl get service nginx-nfs
 NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 nginx-nfs   NodePort   10.152.183.62   <none>        80:31659/TCP   3m6s
-mahsan@k8sawx:~/YAML$
+mahsan@k8sawx:/YAML$
 
 <b> on NFS server, create a test file under the NFS shared directory </b>
 
-mahsan@k8snfs:~/nfsshare$  echo 'NFS Persistent Storage Test' > /home/mahsan/nfsshare/index.html
-mahsan@k8snfs:~/nfsshare$ ll
+mahsan@k8snfs:/nfsshare$  echo 'NFS Persistent Storage Test' > /home/mahsan/nfsshare/index.html
+mahsan@k8snfs:/nfsshare$ ll
 total 16
 drwxrwxr-x 2 mahsan mahsan 4096 Jun  1 19:34 ./
 drwxr-x--- 5 mahsan mahsan 4096 Jun  1 17:23 ../
