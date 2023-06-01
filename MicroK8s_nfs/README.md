@@ -1,4 +1,4 @@
-<h1> K8s PV and PVC with NFS Server </h1>
+<h1><em> K8s PV and PVC with NFS Server</em> </h1>
 <pre>
 
 <b>  NFS Server </b>
